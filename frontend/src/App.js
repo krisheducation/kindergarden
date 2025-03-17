@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "./config";
 
 const shapes = ["Circle", "Square", "Triangle", "Rectangle", "Star"];
 const colors = ["Red", "Blue", "Green", "Yellow", "Purple"];
@@ -9,14 +10,14 @@ function App() {
   const [selectedColor, setSelectedColor] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/selection").then((res) => {
+    axios.get(`${API_URL}/selection`).then((res) => {
       setSelectedShape(res.data.shape);
       setSelectedColor(res.data.color);
     });
   }, []);
 
   const updateSelection = () => {
-    axios.post("http://localhost:5000/update", {
+    axios.post(`${API_URL}/update`, {
       shape: selectedShape,
       color: selectedColor,
     });
