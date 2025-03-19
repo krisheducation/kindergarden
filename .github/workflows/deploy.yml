@@ -41,14 +41,8 @@ jobs:
       - name: Configure Kubeconfig
         run: |
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
-
-      - name: Debug - List Files
-        run: ls -R
-
-      - name: Debug - Check k8s Directory
-        run: ls -R k8s/    
+          export KUBECONFIG=kubeconfig.yaml    
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f k8s/deployment.yml
+          kubectl apply -f /kindergarden-app/k8s/deployment.yml
