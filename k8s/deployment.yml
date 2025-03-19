@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shape-color-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shape-color-app
+  template:
+    metadata:
+      labels:
+        app: shape-color-app
+    spec:
+      containers:
+        - name: backend
+          image: your-dockerhub-username/shape-color-backend:latest
+          ports:
+            - containerPort: 5000
+        - name: frontend
+          image: your-dockerhub-username/shape-color-frontend:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shape-color-service
+spec:
+  selector:
+    app: shape-color-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
