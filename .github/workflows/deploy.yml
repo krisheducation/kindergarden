@@ -33,10 +33,7 @@ jobs:
     needs: build
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2  # Ensure repository is cloned
-
-    - name: Verify k8s Directory
-      run: ls -R  # Debugging step to check file structure
+      uses: actions/checkout@v2
 
     - name: Install kubectl
       run: |
@@ -47,8 +44,14 @@ jobs:
     - name: Configure Kubeconfig
       run: |
         echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig.yaml
-        export KUBECONFIG=kubeconfig.yaml
+        export KUBECONFIG=$PWD/kubeconfig.yaml
+        kubectl config current-context  # Debugging: Show current Kubernetes context
+
+    - name: Verify Kubernetes Connection
+      run: |
+        kubectl get nodes  # Ensure `kubectl` can connect to the cluster
 
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f k8s/deployment.yml
+
