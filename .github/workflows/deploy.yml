@@ -45,17 +45,6 @@ jobs:
           kubectl config get-contexts
           kubectl config current-context
 
-      - name: Debug - List Files
-        run: ls -R
-
-      - name: Debug - Check k8s Directory
-        run: ls -R k8s/    
-
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/deployment.yml
