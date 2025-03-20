@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: backend
-          image: your-dockerhub-username/shape-color-backend:latest
+          image: krish141/kindergarden-app-backend
           ports:
             - containerPort: 5000
         - name: frontend
-          image: your-dockerhub-username/shape-color-frontend:latest
+          image: krish141/kindergarden-app-frontend
           ports:
             - containerPort: 3000
 ---
